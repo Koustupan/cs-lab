@@ -1,0 +1,37 @@
+import plotly.express as px
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as stats
+import pandas as pd
+
+df=px.data.iris()
+attribute='sepal_length'
+print("1.Printing the first five records:")
+print(df.head())
+
+plt.subplot(1, 2, 1)
+sns.histplot(iris[attribute], kde=False, bins=20)
+plt.title(f'Histogram of {attribute}')
+plt.xlabel(attribute)
+plt.ylabel('Frequency')
+
+plt.subplot(1, 2, 2)
+sns.kdeplot(iris[attribute], fill=True)
+plt.title(f'KDE of {attribute}')
+plt.xlabel(attribute)
+plt.ylabel('Density')
+
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(8, 6))
+stats.probplot(iris[attribute], dist="norm", plot=plt)
+plt.title(f'Probability Plot of {attribute}')
+plt.show()
+
+skewness = iris[attribute].skew()
+print(f"Skewness of {attribute}: {skewness}")
+
+kurtosis = iris[attribute].kurtosis()
+print(f"Kurtosis of {attribute}: {kurtosis}")
